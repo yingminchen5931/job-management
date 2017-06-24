@@ -13,10 +13,14 @@
             .margin-10{
                 margin:10px;
             }
+            .margin-3{
+                margin:3px;
+            }
             </style>
             
             <div class="layout horizontal center">
                 <div>
+                    <!-- Retrieve data from json file -->
                     <api-sample
                         data="{{dataFromApi}}"
                         page="{{page}}"
@@ -25,27 +29,34 @@
                         total-elements="{{totalElements}}"
                         total-pages="{{totalPages}}">
                     </api-sample>
-                    <paper-card heading="Job Filtering" class="filter-container">
+                    <!-- filtering section -->
+                    <paper-card class="filter-container">
                         <div class="card-content">
+                            <h4>Job Filtering</h4>
                             <div class="horizontal layout wrap">
                                 <div class="margin-3 horizontal layout center">
-                                    <div>Last Run Timestamp</div>
-                                    <input type="date"></input>
+                                    <div>Last Run Timestamp:</div>
+                                    <div class="margin-3"></div>
+                                    <paper-input type="date"></paper-input>
                                 </div>
                                 <div class="margin-3 horizontal layout center">
                                     <div>Owner:</div>
-                                    <input></input>
+                                    <div class="margin-3"></div>
+                                    <paper-input value="{{selectedOwner}}"></paper-input>
                                 </div>
                                 <div class="margin-3 horizontal layout center">
                                     <div>Job Type:</div>
-                                    <input></input>
+                                    <div class="margin-3"></div>
+                                    <paper-input value="{{selectedJobType}}"></paper-input>
                                 </div>
+                            </div>
+                            <div class="horizontal layout center">
                                 <div>Status:</div>
-                                <input type="checkbox">Failed</input>
-                                <input type="checkbox">Running</input>
-                                <input type="checkbox">Success</input>
-                                <input type="checkbox">on-hold</input>
-                                <input type="checkbox">Disabled</input>
+                                <paper-checkbox checked="{{isFailedTask}}">Failed</paper-checkbox>
+                                <paper-checkbox checked="{{isRunningTask}}">Running</paper-checkbox>
+                                <paper-checkbox checked="{{isSucessfulTask}}">Success</paper-checkbox>
+                                <paper-checkbox checked="{{isOnHoldTask}}">on-hold</paper-checkbox>
+                                <paper-checkbox checked="{{isDisabledTask}}">Disabled</paper-checkbox>
                             </div>
                             <div class="horizontal layout flex">
                                 <div class="flex"></div>
@@ -53,9 +64,9 @@
                             </div>
                         </div>
                     </paper-card>
-
-                    <paper-card heading="Sortable, paginable, filterable, draggable (fruit and color), with toggle column">
-                        
+        
+                    <!-- table section -->
+                    <paper-card>
                         <div class="horizontal center layout">
                             <paper-input class="flex" no-label-float label="Search">
                                 <iron-icon icon="search" prefix></iron-icon>
@@ -116,47 +127,44 @@
             Polymer({
                     is: 'table-element',
                     properties: {
-                    sortProperty: {
-                    type: String,
+                        sortProperty: {
+                        type: String,
                     },
                     selectedRows: {
-                    type: Array,
-                    value: [],
+                        type: Array,
+                        value: [],
                     },
-                    },
-                    ready: function() {
-                    // this.$$('paper-datatable-api').changeColumnOrder(['color', 'fruit', 'weight']);
                     },
                     _hideColumn: function(event) {
-                    var property = event.currentTarget.columnProperty;
-                    this.$$('paper-datatable-api').toggleColumn(property);
+                        var property = event.currentTarget.columnProperty;
+                        this.$$('paper-datatable-api').toggleColumn(property);
                     },
                     _handleSort: function(event) {
-                    this.sortProperty = event.detail.sort.property + ',' + event.detail.sort.direction;
+                        this.sortProperty = event.detail.sort.property + ',' + event.detail.sort.direction;
                     },
                     _handleFilter: function(event) {
-                    var divLocal = document.createElement('div');
-                    var filter = event.detail.filter.value;
-                    var column = event.detail.filter.property;
-                    var eventRow = document.createTextNode(filter + ' is filtered on ' + column + ' column');
-                    Polymer.dom(divLocal).appendChild(eventRow);
-                    Polymer.dom(this.$.paperCardEvent).querySelector('.card-content').appendChild(divLocal);
+                        var divLocal = document.createElement('div');
+                        var filter = event.detail.filter.value;
+                        var column = event.detail.filter.property;
+                        var eventRow = document.createTextNode(filter + ' is filtered on ' + column + ' column');
+                        Polymer.dom(divLocal).appendChild(eventRow);
+                        Polymer.dom(this.$.paperCardEvent).querySelector('.card-content').appendChild(divLocal);
                     },
                     _handleSelectionChanged: function(event) {
-                    var divLocal = document.createElement('div');
-                    if (event.detail.selected) {
-                    var eventRow = document.createTextNode('Row ' + event.detail.selected + ' selected');
-                    Polymer.dom(divLocal).appendChild(eventRow);
-                    var eventData = document.createTextNode('Data : ' + JSON.stringify(event.detail.data));
-                    var brLocal = document.createElement('br');
-                    Polymer.dom(divLocal).appendChild(brLocal);
-                    Polymer.dom(divLocal).appendChild(eventData);
-                    } else {
-                    var eventRow = document.createTextNode('Row ' + event.detail.deselected + ' deselected');
-                    Polymer.dom(divLocal).appendChild(eventRow);
-                    }
-                    Polymer.dom(this.$.paperCardEvent).querySelector('.card-content').appendChild(divLocal);
-                    },
+                        var divLocal = document.createElement('div');
+                        if (event.detail.selected) {
+                            var eventRow = document.createTextNode('Row ' + event.detail.selected + ' selected');
+                            Polymer.dom(divLocal).appendChild(eventRow);
+                            var eventData = document.createTextNode('Data : ' + JSON.stringify(event.detail.data));
+                            var brLocal = document.createElement('br');
+                            Polymer.dom(divLocal).appendChild(brLocal);
+                            Polymer.dom(divLocal).appendChild(eventData);
+                        } else {
+                            var eventRow = document.createTextNode('Row ' + event.detail.deselected + ' deselected');
+                            Polymer.dom(divLocal).appendChild(eventRow);
+                        }
+                        Polymer.dom(this.$.paperCardEvent).querySelector('.card-content').appendChild(divLocal);
+                        },
                     });
             </script>
     </dom-module>
