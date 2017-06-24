@@ -37,17 +37,17 @@
                                 <div class="margin-3 horizontal layout center">
                                     <div>Last Run Timestamp:</div>
                                     <div class="margin-3"></div>
-                                    <paper-input type="date"></paper-input>
+                                    <paper-input no-label-float type="date"></paper-input>
                                 </div>
                                 <div class="margin-3 horizontal layout center">
                                     <div>Owner:</div>
                                     <div class="margin-3"></div>
-                                    <paper-input value="{{selectedOwner}}"></paper-input>
+                                    <paper-input no-label-float value="{{selectedOwner}}"></paper-input>
                                 </div>
                                 <div class="margin-3 horizontal layout center">
                                     <div>Job Type:</div>
                                     <div class="margin-3"></div>
-                                    <paper-input value="{{selectedJobType}}"></paper-input>
+                                    <paper-input no-label-float value="{{selectedJobType}}"></paper-input>
                                 </div>
                             </div>
                             <div class="horizontal layout center">
@@ -66,8 +66,8 @@
                     </paper-card>
         
                     <!-- table section -->
-                    <paper-card>
-                        <div class="horizontal center layout">
+                    <paper-card class="flex">
+                        <div class="horizontal center layout margin-10">
                             <paper-input class="flex" no-label-float label="Search">
                                 <iron-icon icon="search" prefix></iron-icon>
                             </paper-input>
