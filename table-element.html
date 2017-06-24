@@ -96,26 +96,26 @@
                         </div>
                         
                         <div class="card-content">
-                            <paper-datatable-api paginate selectable filters
+                            <paper-datatable-api paginate selectable 
                                 data="[[dataFromApi]]" page="{{page}}" size="{{size}}"
                                 available-size="[4]" toggle-columns="{{toggleColumns}}"
-                                on-sort="_handleSort" on-filter="_handleFilter" selected-rows={{selectedRows}}
+                                on-sort="_handleSort" selected-rows="{{selectedRows}}"
                                 on-selection-changed="_handleSelectionChanged" total-elements="[[totalElements]]"
                                 total-pages="[[totalPages]]" selectable-data-key="fruit">
                                 
-                                <paper-datatable-api-column header="Fruit" property="fruit" filter
+                                <paper-datatable-api-column header="Fruit" property="fruit"
                                     choices='[{"key": "banana","label": "banana"},{"key": "apple","label": "apple"},{"key": "orange","label": "orange"},{"key":"strawberry","label": "strawberry"}]'
-                                    sortable draggable-column hideable>
+                                    sortable  hideable>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Color" property="color" draggable-column filter>
+                                <paper-datatable-api-column header="Color" property="color" sortable hideable>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Weight" property="weight" hideable>
+                                <paper-datatable-api-column header="Weight" property="weight" sortable hideable>
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
