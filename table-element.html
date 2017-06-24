@@ -29,6 +29,7 @@
                         total-elements="{{totalElements}}"
                         total-pages="{{totalPages}}">
                     </api-sample>
+                    
                     <!-- filtering section -->
                     <paper-card class="filter-container">
                         <div class="card-content">
@@ -65,7 +66,7 @@
                             </div>
                             <div class="horizontal layout flex">
                                 <div class="flex"></div>
-                                <paper-button>Filter</paper-button>
+                                <paper-button on-tap="_tapFilterResult">Filter</paper-button>
                             </div>
                         </div>
                     </paper-card>
@@ -96,7 +97,7 @@
                         </div>
                         
                         <div class="card-content">
-                            <paper-datatable-api paginate selectable 
+                            <paper-datatable-api paginate selectable
                                 data="[[dataFromApi]]" page="{{page}}" size="{{size}}"
                                 available-size="[4]" toggle-columns="{{toggleColumns}}"
                                 on-sort="_handleSort" selected-rows="{{selectedRows}}"
@@ -120,7 +121,6 @@
                                         <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                
                             </paper-datatable-api>
                         </div>
                     </paper-card>
@@ -133,13 +133,18 @@
                     is: 'table-element',
                     properties: {
                         sortProperty: {
-                        type: String,
+                            type: String,
+                        },
+                        selectedRows: {
+                            type: Array,
+                            value: [],
+                        },
                     },
-                    selectedRows: {
-                        type: Array,
-                        value: [],
+                    
+                    _tapFilterResult:function(){
+                    
                     },
-                    },
+                    
                     _hideColumn: function(event) {
                         var property = event.currentTarget.columnProperty;
                         this.$$('paper-datatable-api').toggleColumn(property);
