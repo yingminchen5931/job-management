@@ -62,24 +62,25 @@
                                 available-size="[2, 4]"
                                 toggle-columns="{{toggleColumns}}"
                                 on-sort="_handleSort" on-filter="_handleFilter"
-                                selected-rows={{selectedRows}}  on-selection-changed="_handleSelectionChanged"
+                                selected-rows="{{selectedRows}}"
+                                on-selection-changed="_handleSelectionChanged"
                                 total-elements="[[totalElements]]" total-pages="[[totalPages]]" selectable-data-key="fruit">
                                 
                                 <paper-datatable-api-column header="Fruit" property="fruit" filter
                                     choices='[{"key": "banana","label": "banana"},{"key": "apple","label": "apple"},{"key": "orange","label": "orange"},{"key":"strawberry","label": "strawberry"}]'
                                     sortable draggable-column hideable>
                                     <template>
-                                        <span>[[property]]</span>
+                                        <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
                                 <paper-datatable-api-column header="Color" property="color" draggable-column filter>
                                     <template>
-                                        <span>[[property]]</span>
+                                        <span>[[value.color]]</span>
                                     </template>
                                 </paper-datatable-api-column>
                                 <paper-datatable-api-column header="Weight" property="weight" hideable>
                                     <template>
-                                        <span>[[property.kg]]</span>
+                                        <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
                                 
