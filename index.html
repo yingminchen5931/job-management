@@ -28,47 +28,36 @@
         <div class="horizontal layout center">
             <!-- left panel -->
             <div class="major-container">
-                <div class="filter-container">
-                    <div>Job Filtering</div>
-                    <div class="horizontal layout wrap">
-                        <div class="margin-3 horizontal layout center">
-                            <div>Last Run Timestamp</div>
-                            <input type="date"></input>
+                <paper-card heading="Job Filtering" class="filter-container">
+                    <div class="card-content">
+                        <div class="horizontal layout wrap">
+                            <div class="margin-3 horizontal layout center">
+                                <div>Last Run Timestamp</div>
+                                <input type="date"></input>
+                            </div>
+                            <div class="margin-3 horizontal layout center">
+                                <div>Owner:</div>
+                                <input></input>
+                            </div>
+                            <div class="margin-3 horizontal layout center">
+                                <div>Job Type:</div>
+                                <input></input>
+                            </div>
+                            <div>Status:</div>
+                            <input type="checkbox">Failed</input>
+                            <input type="checkbox">Running</input>
+                            <input type="checkbox">Success</input>
+                            <input type="checkbox">on-hold</input>
+                            <input type="checkbox">Disabled</input>
                         </div>
-                        <div class="margin-3 horizontal layout center">
-                            <div>Owner:</div>
-                            <input></input>
+                        <div class="horizontal layout flex">
+                            <div class="flex"></div>
+                            <paper-button>Filter</paper-button>
                         </div>
-                        <div class="margin-3 horizontal layout center">
-                            <div>Job Type:</div>
-                            <input></input>
-                        </div>
-                        <div>Status:</div>
-                        <input type="checkbox">Failed</input>
-                        <input type="checkbox">Running</input>
-                        <input type="checkbox">Success</input>
-                        <input type="checkbox">on-hold</input>
-                        <input type="checkbox">Disabled</input>
                     </div>
-                    <div class="horizontal layout flex">
-                        <div class="flex"></div>
-                        <paper-button>Filter</paper-button>
-                    </div>
-                </div>
+                </paper-card>
+               <!-- main table display -->
                 <div class="table-container">
-                    <!-- search header -->
-                    <div class="horizontal layout center">
-                        <input class="flex" label="search"></input>
-                        <div class="margin-10"></div>
-                        <select name="cars">
-                            <option value="jobName">Job Name</option>
-                            <option value="jobType">Job Type</option>
-                            <option value="owner">Owner</option>
-                            <option value="lastRunTimeStamp">Last Run Timestamp</option>
-                            <option value="details">Details</option>
-                        </select>
-                    </div>
-                    <!-- main table display -->
                     <table-element></table-element>
                 </div>
             </div>
@@ -95,12 +84,5 @@
                 </google-chart>
             </div>
         </div>
-        <script>
-            var t = document.querySelector('template[is="dom-bind"]');
-            t.equals = function(target, value) {
-                return target === value;
-            };
-        t.selected = 'advanced';
-            </script>
-    </body>
+</body>
 </html>

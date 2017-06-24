@@ -1,4 +1,5 @@
 <link rel="import" href="../../polymer/polymer.html">
+
     
     <dom-module id="table-element">
         
@@ -99,18 +100,6 @@
                                     </template>
                                 </paper-datatable-api-column>
                             </paper-datatable-api>
-                        </div>
-                    </paper-card>
-                    <paper-card id="paperCardEvent" heading="Events">
-                        <div class="card-content"></div>
-                    </paper-card>
-                    <paper-card id="paperCardSelectedRows" heading="Selected Rows attribute">
-                        <div class="card-content">
-                            <template is="dom-repeat" items="[[selectedRows]]" as="selectedRow">
-                                <div>
-                                    Row [[selectedRow]] selected
-                                </div>
-                            </template>
                         </div>
                     </paper-card>
                 </div>
