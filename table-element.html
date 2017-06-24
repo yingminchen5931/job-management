@@ -20,16 +20,6 @@
             
             <div class="layout horizontal center">
                 <div>
-                    <!-- Retrieve data from json file -->
-                    <api-sample
-                        data="{{dataFromApi}}"
-                        page="{{page}}"
-                        size="{{size}}"
-                        sort-property="[[sortProperty]]"
-                        total-elements="{{totalElements}}"
-                        total-pages="{{totalPages}}">
-                    </api-sample>
-                    
                     <!-- filtering section -->
                     <paper-card class="filter-container">
                         <div class="card-content">
@@ -99,7 +89,7 @@
                         
                         <div class="card-content">
                             <paper-datatable-api paginate selectable
-                                data="[[dataFromApi]]" page="{{page}}" size="{{size}}"
+                                data="[[data]]" page="{{page}}" size="{{size}}"
                                 available-size="[4]" toggle-columns="{{toggleColumns}}"
                                 on-sort="_handleSort" selected-rows="{{selectedRows}}"
                                 on-selection-changed="_handleSelectionChanged" total-elements="[[totalElements]]"
@@ -164,7 +154,22 @@
                             value: [],
                         },
                     },
+                    ready:function(){
                     
+                        this.data=[{
+                            "id": "1",
+                            "name": "Job 1",
+                            "type":"Security",
+                            "owner": "John",
+                            "last-run":"2017-05-10",
+                            "status":"FAILED",
+                            "progress":"20%",
+                            "details":"Please Wait",
+                            "action":"start",
+                            "hiddenColumn": 1
+                                   }];
+                    },
+
                     _tapFilterResult:function(){
                     
                     },
