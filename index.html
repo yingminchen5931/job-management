@@ -15,7 +15,7 @@
             <link rel="import" href="components/paper-card/paper-card.html">
             <link rel="import" href="components/google-chart/google-chart.html">
             <link rel="import" href="components/paper-datatable-api/dist/paper-datatable-api.html">
-                <link rel="import" href="components/paper-datatable-api/dist/paper-datatable-api-column.html">
+            <link rel="import" href="components/paper-datatable-api/dist/paper-datatable-api-column.html">
             <link rel="import" href="table-element.html">
             <link rel="import" href="api-sample.html">
 
@@ -38,22 +38,22 @@
             <div class="graph-container">
                 <google-chart
                     type='pie'
-                    options='{"title": "Distribution of days in 2001Q1"}'
-                    cols='[{"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}]'
-                    rows='[["Jan", 31],["Feb", 28],["Mar", 31]]'>
+                    options='{"title": "Overall Job Status"}'
+                    cols='[{"label":"Job Status", "type":"string"}, {"label":"Valie", "type":"number"}]'
+                    rows='[["Failed Jobs", 25],["Disabled Jobs", 0],["On-hold Jobs", 25]],["Running Jobs", 25]], ["Success Jobs", 25]]'>
                 </google-chart>
                 <google-chart
                     type="bar"
-                    options='{"title": "Days in a month"}'
-                    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
-                    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+                    options='{"title": "Job Progress Summary"}'
+                    cols='[{"label": "Percentage Brackets", "type": "string"},{"label": "Value", "type": "number"}]'
+                    rows='[["0%-25%", 50],["26%-50%", 0],["51%-75%", 25],["76%-100%", 25]'>
                 </google-chart>
                 <google-chart
                     id="line-chart"
                     type="line"
-                    options='{"title": "Days in a month"}'
-                    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
-                    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+                    options='{"title": "Job Status Trend"}'
+                    cols='[{"label": "Sucessful Job Timestamp", "type": "string"},{"label": "Value", "type": "number"}]'
+                    rows='[["Average", 31],["Average", 28],["Good", 50],["Average", 30],["Below Average", 10]'>
                 </google-chart>
             </div>
         </div>
