@@ -3,49 +3,27 @@
 
 <dom-module id="table-element">
 <template>
-<paper-card>
-<div>Hello</div>
-</paper-card>
-   <paper-datatable-api
-paginate selectable filters
-data='[{"id": "1","color": "yellow","fruit": "banana","weight": { "kg": "0.12gr", "gr": "120gr" },"hiddenColumn": 1 }]'
-page="{{page}}"
-size="{{size}}"
-available-size="[2, 4]"
-toggle-columns="{{toggleColumns}}"
-on-sort="_handleSort"
-on-filter="_handleFilter"
-selected-rows={{selectedRows}}
-on-selection-changed="_handleSelectionChanged"
-total-elements="[[totalElements]]"
-total-pages="[[totalPages]]"
-selectable-data-key="fruit">
-<paper-datatable-api-column
-header="Fruit"
-property="fruit"
-filter
-choices='[{"key": "banana","label": "banana"},{"key": "apple","label": "apple"},{"key": "orange","label": "orange"},{"key":"strawberry","label": "strawberry"}]'
-sortable
-draggable-column
-hideable>
-<template>
-<span>[[value]]</span>
-</template>
-</paper-datatable-api-column>
-<paper-datatable-api-column
-header="Color"
-property="color"
-draggable-column
-filter>
-<template>
-<span>[[value]]</span>
-</template>
-</paper-datatable-api-column>
-<paper-datatable-api-column header="Weight" property="weight" hideable>
-<template>
-<span>[[value.kg]]</span>
-</template>
-</paper-datatable-api-column>
+<paper-datatable-api data="[[data]]">
+    <paper-datatable-api-column header="Fruit" property="fruit" other-properties='["color"]'>
+        <template>
+            <span>[[value]], color: [[otherValues.color]]</span>
+        </template>
+    </paper-datatable-api-column>
+    <paper-datatable-api-column header="Weight (kg)" property="weight">
+        <template>
+            <span>[[value.kg]]</span>
+        </template>
+    </paper-datatable-api-column>
+    <paper-datatable-api-column header="Weight (gr)" property="weight.gr">
+        <template>
+            <span>[[value]]</span>
+        </template>
+    </paper-datatable-api-column>
+    <paper-datatable-api-column header="Hidden by default" property="hiddenColumn" hideable>
+        <template>
+            <span>[[value]]</span>
+        </template>
+    </paper-datatable-api-column>
 </paper-datatable-api>
 </template>
 
@@ -63,6 +41,26 @@ Polymer({
     },
     ready: function() {
         // this.$$('paper-datatable-api').changeColumnOrder(['color', 'fruit', 'weight']);
+        this.data=[{
+         "id": "1",
+         "color": "yellow",
+         "fruit": "banana",
+         "weight": {
+         "kg": "0.12gr",
+         "gr": "120gr"
+         },
+         "hiddenColumn": 1
+         },
+         {
+         "id": "2",
+         "fruit": "apple",
+         "color": "green",
+         "weight": {
+         "kg": "0.12gr",
+         "gr": "120gr"
+         },
+         "hiddenColumn": 1
+         }];
     },
     _hideColumn: function(event) {
         var property = event.currentTarget.columnProperty;
