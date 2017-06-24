@@ -14,11 +14,11 @@
     	"owner": "John",
     	"last-run":"2017-05-10",
     	"status":"FAILED",
-    	"progress":"20%”,
+    	"progress":"20%",
     	"details":"Please Wait",
     	"action":"start",
     	"hiddenColumn": 1
-  },
+  }
  
     ]
   }
