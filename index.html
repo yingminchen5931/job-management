@@ -38,20 +38,20 @@
                 <google-chart
                     type='pie'
                     options='{"title": "Overall Job Status"}'
-                    cols='[{"label":"Job Status", "type":"string"}, {"label":"Valie", "type":"number"}]'
-                    rows='[["Failed Jobs", 25],["Disabled Jobs", 0],["On-hold Jobs", 25]],["Running Jobs", 25]], ["Success Jobs", 25]]'>
+                    cols='[{"label":"Status", "type":"string"}, {"label":"Value", "type":"number"}]'
+                    rows='[["Failed Jobs", 25],["Disabled Jobs", 0],["On Hold Jobs", 25]],["Running Jobs", 25]], ["Success Jobs", 25]]'>
                 </google-chart>
                 <google-chart
                     type="bar"
                     options='{"title": "Job Progress Summary"}'
-                    cols='[{"label": "Percentage Brackets", "type": "string"},{"label": "Value", "type": "number"}]'
+                    cols='[{"label": "Percentage", "type": "string"},{"label": "Value", "type": "number"}]'
                     rows='[["0%-25%", 50],["26%-50%", 0],["51%-75%", 25],["76%-100%", 25]'>
                 </google-chart>
                 <google-chart
                     id="line-chart"
                     type="line"
                     options='{"title": "Job Status Trend"}'
-                    cols='[{"label": "Sucessful Job Timestamp", "type": "string"},{"label": "Value", "type": "number"}]'
+                    cols='[{"label": "Timestamp", "type": "string"},{"label": "Value", "type": "number"}]'
                     rows='[["Average", 31],["Average", 28],["Good", 50],["Average", 30],["Below Average", 10]'>
                 </google-chart>
             </div>
