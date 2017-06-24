@@ -84,10 +84,10 @@
                                 <paper-menu class="dropdown-content">
                                     <template is="dom-repeat" items="[[toggleColumns]]" as="column" index-as="index">
                                         <paper-icon-item column-property="[[column.property]]" on-tap="_hideColumn">
-                                            <template is="dom-if" if="[[!column.hidden]]">
+                                            <template is="dom-if" if="[[column.hidden]]">
                                                 <iron-icon icon="visibility-off" item-icon></iron-icon>
                                             </template>
-                                            <template is="dom-if" if="[[column.hidden]]">
+                                            <template is="dom-if" if="[[!column.hidden]]">
                                                 <iron-icon disabled icon="visibility" item-icon></iron-icon>
                                             </template>
                                             [[column.header]]
@@ -105,42 +105,42 @@
                                 on-selection-changed="_handleSelectionChanged" total-elements="[[totalElements]]"
                                 total-pages="[[totalPages]]" selectable-data-key="fruit">
                                 
-                                <paper-datatable-api-column header="Job Title" property="fruit" sortable  hideable>
+                                <paper-datatable-api-column header="Job Title" property="name" sortable  hideable>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Job Type" property="color" sortable hideable>
+                                <paper-datatable-api-column header="Job Type" property="type" sortable hideable>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Owner" property="weight" sortable hideable>
+                                <paper-datatable-api-column header="Owner" property="owner" sortable hideable>
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Last Run Timestamp" property="weight" sortable hideable>
+                                <paper-datatable-api-column header="Last Run Timestamp" property="last-run" sortable hideable>
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Status" property="weight" sortable hideable>
+                                <paper-datatable-api-column header="Status" property="status" sortable hideable>
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Progress" property="weight" sortable hideable>
+                                <paper-datatable-api-column header="Progress" property="progress" sortable hideable>
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Details" property="weight" sortable hideable>
+                                <paper-datatable-api-column header="Details" property="details" sortable hideable>
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Actions" property="weight">
+                                <paper-datatable-api-column header="Actions" property="actions">
                                     <template>
                                         <span>[[value.kg]]</span>
                                     </template>
