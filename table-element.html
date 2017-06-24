@@ -5,9 +5,13 @@
             <style>
             paper-card {
                 width: 100%;
+                margin:10px;
             }
             paper-input iron-icon {
                 color: var(--paper-grey-600);
+            }
+            .margin-10{
+                margin:10px;
             }
             </style>
             
@@ -52,10 +56,11 @@
 
                     <paper-card heading="Sortable, paginable, filterable, draggable (fruit and color), with toggle column">
                         
-                        <div class="horizontal end-justified center layout">
-                            <paper-input no-label-float label="Search">
+                        <div class="horizontal center layout">
+                            <paper-input class="flex" no-label-float label="Search">
                                 <iron-icon icon="search" prefix></iron-icon>
                             </paper-input>
+                            <div class="margin-10"></div>
                             <paper-menu-button ignore-select horizontal-align="right">
                                 <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
                                 <paper-menu class="dropdown-content">
@@ -75,39 +80,21 @@
                         </div>
                         
                         <div class="card-content">
-                            <paper-datatable-api
-                                paginate
-                                selectable
-                                filters
-                                data="[[dataFromApi]]"
-                                page="{{page}}"
-                                size="{{size}}"
-                                available-size="[2, 4]"
-                                toggle-columns="{{toggleColumns}}"
-                                on-sort="_handleSort"
-                                on-filter="_handleFilter"
-                                selected-rows={{selectedRows}}
-                                on-selection-changed="_handleSelectionChanged"
-                                total-elements="[[totalElements]]"
-                                total-pages="[[totalPages]]"
-                                selectable-data-key="fruit">
-                                <paper-datatable-api-column
-                                    header="Fruit"
-                                    property="fruit"
-                                    filter
+                            <paper-datatable-api paginate selectable filters
+                                data="[[dataFromApi]]" page="{{page}}" size="{{size}}"
+                                available-size="[2, 4]" toggle-columns="{{toggleColumns}}"
+                                on-sort="_handleSort" on-filter="_handleFilter" selected-rows={{selectedRows}}
+                                on-selection-changed="_handleSelectionChanged" total-elements="[[totalElements]]"
+                                total-pages="[[totalPages]]" selectable-data-key="fruit">
+                                
+                                <paper-datatable-api-column header="Fruit" property="fruit" filter
                                     choices='[{"key": "banana","label": "banana"},{"key": "apple","label": "apple"},{"key": "orange","label": "orange"},{"key":"strawberry","label": "strawberry"}]'
-                                    sortable
-                                    draggable-column
-                                    hideable>
+                                    sortable draggable-column hideable>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column
-                                    header="Color"
-                                    property="color"
-                                    draggable-column
-                                    filter>
+                                <paper-datatable-api-column header="Color" property="color" draggable-column filter>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
@@ -120,19 +107,7 @@
                             </paper-datatable-api>
                         </div>
                     </paper-card>
-                    <paper-card id="paperCardEvent" heading="Events">
-                        <div class="card-content"></div>
-                    </paper-card>
-                    <paper-card id="paperCardSelectedRows" heading="Selected Rows attribute">
-                        <div class="card-content">
-                            <template is="dom-repeat" items="[[selectedRows]]" as="selectedRow">
-                                <div>
-                                    Row [[selectedRow]] selected
-                                </div>
-                            </template>
-                        </div>
-                    </paper-card>
-                </div>
+               </div>
             </div>
         </template>
         
