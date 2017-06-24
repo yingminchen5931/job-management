@@ -1,1 +1,104 @@
-My Page
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css">
+            
+            <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
+            
+            <link rel="import" href="https://polygit.org/components/paper-input/paper-input.html">
+                <link rel="import" href="https://polygit.org/components/paper-dropdown-menu/paper-dropdown-menu.html">
+                    <link rel="import" href="https://polygit.org/components/paper-listbox/paper-listbox.html">
+                        <link rel="import" href="https://polygit.org/components/paper-listbox/paper-item.html">
+                            <link rel="import" href="https://polygit.org/components/paper-button/paper-button.html">
+                                <link rel="import" href="https://polygit.org/components/paper-toolbar/paper-toolbar.html">
+                                    <link rel="import" href="https://polygit.org/components/paper-header-panel/paper-header-panel.html">
+                                        <link rel="import" href="https://polygit.org/components/paper-card/paper-card.html">
+                                            <link rel="import" href="https://polygit.org/components/iron-flex-layout/iron-flex-layout-classes.html">
+                                                <link rel="import" href="https://polygit.org/components/google-chart/google-chart.html">
+                                                    <link rel="import" href="table-element.html">
+                                                        </head>
+    <body class="fullbleed">
+        <!-- heading -->
+        <div class="vertical layout center">
+            <h4>Job Scheduling Application</h4>
+        </div>
+        <!-- main body -->
+        <div class="horizontal layout center">
+            <!-- left panel -->
+            <div class="major-container">
+                <div class="filter-container">
+                    <div>Job Filtering</div>
+                    <div class="horizontal layout wrap">
+                        <div class="margin-3 horizontal layout center">
+                            <div>Last Run Timestamp</div>
+                            <input type="date"></input>
+                        </div>
+                        <div class="margin-3 horizontal layout center">
+                            <div>Owner:</div>
+                            <input></input>
+                        </div>
+                        <div class="margin-3 horizontal layout center">
+                            <div>Job Type:</div>
+                            <input></input>
+                        </div>
+                        <div>Status:</div>
+                        <input type="checkbox">Failed</input>
+                        <input type="checkbox">Running</input>
+                        <input type="checkbox">Success</input>
+                        <input type="checkbox">on-hold</input>
+                        <input type="checkbox">Disabled</input>
+                    </div>
+                    <div class="horizontal layout flex">
+                        <div class="flex"></div>
+                        <paper-button>Filter</paper-button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <!-- search header -->
+                    <div class="horizontal layout center">
+                        <input class="flex" label="search"></input>
+                        <div class="margin-10"></div>
+                        <select name="cars">
+                            <option value="jobName">Job Name</option>
+                            <option value="jobType">Job Type</option>
+                            <option value="owner">Owner</option>
+                            <option value="lastRunTimeStamp">Last Run Timestamp</option>
+                            <option value="details">Details</option>
+                        </select>
+                    </div>
+                    <!-- main table display -->
+                    <table-element></table-element>
+                </div>
+            </div>
+            <!-- right panel -->
+            <div class="graph-container">
+                <google-chart
+                    type='pie'
+                    options='{"title": "Distribution of days in 2001Q1"}'
+                    cols='[{"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}]'
+                    rows='[["Jan", 31],["Feb", 28],["Mar", 31]]'>
+                </google-chart>
+                <google-chart
+                    type="bar"
+                    options='{"title": "Days in a month"}'
+                    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+                    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+                </google-chart>
+                <google-chart
+                    id="line-chart"
+                    type="line"
+                    options='{"title": "Days in a month"}'
+                    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+                    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+                </google-chart>
+            </div>
+        </div>
+        <script>
+            var t = document.querySelector('template[is="dom-bind"]');
+            t.equals = function(target, value) {
+                return target === value;
+            };
+        t.selected = 'advanced';
+            </script>
+    </body>
+</html>
