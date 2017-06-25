@@ -50,6 +50,15 @@
                     <paper-button dialog-confirm autofocus on-tap="_tapConfirmRequest">Accept</paper-button>
                 </div>
             </paper-dialog>
+            
+            <api-sample
+                data="{{data}}"
+                page="{{page}}"
+                size="{{size}}"
+                total-elements="{{totalElements}}"
+                total-pages="{{totalPages}}">
+            </api-sample>
+            
             <div class="layout horizontal center">
                 <div>
                     <!-- filtering section -->
@@ -116,17 +125,15 @@
                         </div>
                         
                         <div class="card-content">
-                           <!-- <paper-datatable-api paginate
+                           <paper-datatable-api paginate
                                 data="[[data]]" page="{{page}}" size="{{size}}"
                                 available-size="[4]" toggle-columns="{{selectedColumns}}"
-                                on-sort="_handleSort" selected-rows="{{selectedRows}}"
-                                on-selection-changed="_handleSelectionChanged" total-elements="[[totalElements]]"
-                                total-pages="[[totalPages]]" selectable-data-key="fruit">-->
-                           <paper-datatable-api paginate
+                                total-elements="[[totalElements]]"
+                                total-pages="[[totalPages]]">
+                         <!--  <paper-datatable-api paginate
                                data="[[data]]" page="4" size="4"
                                available-size="[4]" toggle-columns="{{selectedColumns}}"
-                               on-sort="_handleSort"
-                               total-elements="4" total-pages="1">
+                               total-elements="4" total-pages="1">-->
                                
                                 <paper-datatable-api-column header="Job Title" property="name" sortable>
                                     <template>
@@ -214,9 +221,6 @@
             Polymer({
                     is: 'table-element',
                     properties: {
-                        sortProperty: {
-                            type: String,
-                        },
                         selectedRows: {
                             type: Array,
                             value: [],
@@ -321,16 +325,13 @@
                     },
                     
                     _tapConfirmRequest:function(){
-                    
+                       
                     },
                     
                     _tapFilterResult:function(){
-                        this.data.filter(function (el) {
-                                 return el.price <= 1000 &&
-                                 el.sqft >= 500 &&
-                                 el.num_of_beds >=2 &&
-                                 el.num_of_baths >= 2.5;
-                                 });
+                        this.data.filter(function (request) {
+                            return request.lastrun<= 1000 && request.owner &&request.type &&request.status >= 2.5;
+                         });
                     },
                     
                     _tapPlay:function(e){
@@ -371,59 +372,7 @@
                     _hideColumn: function(event) {
                         var property = event.currentTarget.columnProperty;
                         this.$$('paper-datatable-api').toggleColumn(property);
-                    },
-                    
-                    _handleSort: function(event) {
-                        this.sortProperty = event.detail.sort.property + ',' + event.detail.sort.direction;
-                        console.log(this.sortProperty);
-                        var value = this.data.sort(this._selectParamToSort(sortJobFunction, event.detail.sort.property));
-                        console.log(this.data);
-                        console.log("original");
-                        console.log(value);
-                        this.$$('paper-datatable-api').render();
-                    },
-                  
-                    _selectParamToSort:function(element, param){
-                        if(param==this.isName){
-                            return element.byName;
-                        }else if(param==this.isType){
-                            return element.byType;
-                        }else if(param==this.isOwner){
-                            return element.byOwner;
-                        }else if(param==this.isLastRun){
-                            return element.byLastRunTime;
-                        }else if(param==this.isStatus){
-                            return element.byStatus;
-                        }else if(param==this.isProgress){
-                            return element.byProgress;
-                        }else if(param==this.isDetail){
-                            return element.byDetails;
-                        }
-                    },
-                    
+                    }
                     });
-               var sortJobFunction = {
-                   byName : function(a,b) {
-                       return (a.name - b.name);
-                   },
-                   byType : function(a,b) {
-                       return (a.type - b.type);
-                   },
-                   byOwner : function(a,b) {
-                       return (a.owner - b.owner);
-                   },
-                   byLastRunTime : function(a,b) {
-                       return (a.lastrun-b.lastrun);
-                   },
-                   byStatus : function(a,b) {
-                       return (a.status-b.status);
-                   },
-                   byProgress:function(a,b){
-                       return (a.progress-b.progress);
-                   },
-                   byDetails:function(a,b){
-                       return (a.details-b.details);
-                   }
-               };
-            </script>
+                          </script>
     </dom-module>

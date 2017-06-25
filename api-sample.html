@@ -1,11 +1,11 @@
-<link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="component/polymer/polymer.html">
+<link rel="import" href="component/iron-ajax/iron-ajax.html">
 
 <dom-module id="api-sample">
   <template>
     <iron-ajax
       auto
-      url="data/data-page=[[page]]&size=[[size]]&sort=[[sortProperty]].json"
+      url="data/data-page=[[page]]&size=[[size]].json"
       on-response="_handleResponse">
   </template>
 
@@ -39,7 +39,6 @@
           type: Array,
           notify: true,
         },
-        sortProperty: String,
       },
 
       _handleResponse: function(event) {
