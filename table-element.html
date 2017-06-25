@@ -54,7 +54,7 @@
             <api-sample
                 data="{{data}}"
                 page="{{page}}"
-                size="4"
+                size="{{size}}"
                 total-elements="{{totalElements}}"
                 total-pages="{{totalPages}}">
             </api-sample>
@@ -126,7 +126,7 @@
                         
                         <div class="card-content">
                            <paper-datatable-api paginate
-                                data="[[data]]" page="{{page}}" size="4"
+                                data="[[data]]" page="{{page}}" size="{{size}}"
                                 available-size="[4]" toggle-columns="{{selectedColumns}}"
                                 total-elements="[[totalElements]]"
                                 total-pages="[[totalPages]]">
