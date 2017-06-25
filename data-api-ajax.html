@@ -1,0 +1,55 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="components/iron-ajax/iron-ajax.html">
+
+<dom-module id="data-api-ajax">
+  <template>
+    <iron-ajax
+      auto
+      url="data/data-page=[[page]]&size=[[size]].json"
+      on-response="_handleResponse">
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'data-api-ajax',
+
+      properties: {
+        page: {
+          type: Number,
+          notify: true,
+          value: 0,
+        },
+        size: {
+          type: Number,
+          notify: true,
+          value: 4,
+        },
+        totalElements: {
+          type: Number,
+          notify: true,
+          value: 0,
+        },
+        totalPages: {
+          type: Number,
+          notify: true,
+          value: 0,
+        },
+        data: {
+          type: Array,
+          notify: true,
+        },
+      },
+
+      _handleResponse: function(event) {
+        var response = event.detail.response;
+        this.data = response._embedded.data;
+        this.page = response.page.number;
+        this.size = response.page.size;
+        this.totalElements = response.page.totalElements;
+        this.totalPages = response.page.totalPages;
+      }
+
+    });
+  </script>
+</dom-module>
