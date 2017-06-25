@@ -17,7 +17,14 @@
                 margin:3px;
             }
             </style>
-            
+            <paper-dialog id="warningMessageDialog">
+                <h2>{{warningTitle}}</h2>
+                <div>{{warningMessage}}</div>
+                <div class="buttons">
+                    <paper-button dialog-dismiss>Cancel</paper-button>
+                    <paper-button dialog-confirm autofocus on-tap="_tapConfirmRequest">Accept</paper-button>
+                </div>
+            </paper-dialog>
             <div class="layout horizontal center">
                 <div>
                     <!-- filtering section -->
@@ -88,13 +95,19 @@
                         </div>
                         
                         <div class="card-content">
-                            <paper-datatable-api paginate selectable
+                           <!-- <paper-datatable-api paginate
                                 data="[[data]]" page="{{page}}" size="{{size}}"
                                 available-size="[4]" toggle-columns="{{toggleColumns}}"
                                 on-sort="_handleSort" selected-rows="{{selectedRows}}"
                                 on-selection-changed="_handleSelectionChanged" total-elements="[[totalElements]]"
-                                total-pages="[[totalPages]]" selectable-data-key="fruit">
-                                
+                                total-pages="[[totalPages]]" selectable-data-key="fruit">-->
+                           <paper-datatable-api paginate filters
+                               data="[[data]]" page="{{page}}" size="{{size}}"
+                               available-size="[4]" toggle-columns="{{toggleColumns}}"
+                               on-sort="_handleSort" on-filter="_handleFilter"
+                               total-elements="[[totalElements]]"
+                               total-pages="[[totalPages]]" selectable-data-key="fruit">
+                               
                                 <paper-datatable-api-column header="Job Title" property="name" sortable  hideable>
                                     <template>
                                         <span>[[value]]</span>
@@ -110,14 +123,31 @@
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
-                                <paper-datatable-api-column header="Last Run Timestamp" property="lastrun" sortable hideable>
+                                <paper-datatable-api-column header="Last Run" property="lastrun" sortable hideable>
                                     <template>
                                         <span>[[value]]</span>
                                     </template>
                                 </paper-datatable-api-column>
                                 <paper-datatable-api-column header="Status" property="status" sortable hideable>
                                     <template>
-                                        <span>[[value]]</span>
+                                        <template is="dom-if" if="{{_isFailed(value)}}">
+                                            <paper-item class="is-failed-class">[[value]]</paper-item>
+                                        </template>
+                                        <template is="dom-if" if="{{_isRunning(value)}}">
+                                            <paper-item class="is-running-class">[[value]]</paper-item>
+                                        </template>
+                                        <template is="dom-if" if="{{_isSuccess(value)}}">
+                                            <paper-item class="is-success-class">[[value]]</paper-item>
+                                        </template>
+                                        <template is="dom-if" if="{{_isDisabled(value)}}">
+                                            <paper-item class="is-disabled-class">[[value]]</paper-item>
+                                        </template>
+                                        <template is="dom-if" if="{{_isOnHold(value)}}">
+                                            <paper-item class="is-on-hold-class">[[value]]</paper-item>
+                                        </template>
+                                        <template is="dom-if" if="{{_isEnabled(value)}}">
+                                            <paper-item class="is-enabled-class">[[value]]</paper-item>
+                                        </template>
                                     </template>
                                 </paper-datatable-api-column>
                                 <paper-datatable-api-column header="Progress" property="progress" sortable hideable>
@@ -132,7 +162,11 @@
                                 </paper-datatable-api-column>
                                 <paper-datatable-api-column header="Actions" property="actions">
                                     <template>
-                                        <span>[[value]]</span>
+                                        <iron-icon icon="av:play" on-tap="_tapPlay"></iron-icon>
+                                        <iron-icon icon="av:stop" on-tap="_tapStop" ></iron-icon>
+                                        <iron-icon icon="av:fast-forward" on-tap="_tapForceStart"></iron-icon>
+                                        <iron-icon icon="av:not-interested" on-tap="_tapDisabled"></iron-icon>
+                                        <iron-icon icon="done" on-tap="_tapEnabled"></iron-icon>
                                     </template>
                                 </paper-datatable-api-column>
                             </paper-datatable-api>
@@ -153,27 +187,145 @@
                             type: Array,
                             value: [],
                         },
+                        isFailed:{type:String, value:"FAILED"},
+                        isEnabled:{type:String, value:"READY"},
+                        isDisabled:{type:String, value:"DISABLED"},
+                        isSuccess:{type:String, value:"SUCCESS"},
+                        isRunning:{type:String, value:"RUNNING"},
+                        isOnHold:{type:String, value:"ON-HOLD"},
                     },
                     ready:function(){
-                    
                         this.data=[{
-                            "id": "1",
-                            "name": "Job 1",
-                            "type":"Security",
-                            "owner": "John",
-                            "lastrun":"2017-05-10",
-                            "status":"FAILED",
-                            "progress":"20%",
-                            "details":"Please Wait",
-                            "action":"start",
-                            "hiddenColumn": 1
+                                   "id": "1",
+                                   "name": "Job 1",
+                                   "type":"Security",
+                                   "owner": "John",
+                                   "lastrun":"Jun 25, 2017 9:15pm",
+                                   "status":"FAILED",
+                                   "progress":20,
+                                   "details":"Please Wait",
+                                   "action":"start",
+                                   "hiddenColumn": 1
+                                   },{
+                                   "id": "2",
+                                   "name": "Job 2",
+                                   "type":"Security",
+                                   "owner": "John",
+                                   "lastrun":"Jun 25, 2017 9:15pm",
+                                   "status":"RUNNING",
+                                   "progress":1,
+                                   "details":"Please Wait",
+                                   "action":"start",
+                                   "hiddenColumn": 1
+                                   },{
+                                   "id": "3",
+                                   "name": "Job 3",
+                                   "type":"Security",
+                                   "owner": "John",
+                                   "lastrun":"Jun 25, 2017 9:15pm",
+                                   "status":"SUCCESS",
+                                   "progress":100,
+                                   "details":"Please Wait",
+                                   "action":"start",
+                                   "hiddenColumn": 1
+                                   },{
+                                   "id": "4",
+                                   "name": "Job 4",
+                                   "type":"Security",
+                                   "owner": "John",
+                                   "lastrun":"Jun 25, 2017 9:15pm",
+                                   "status":"ON-HOLD",
+                                   "progress":20,
+                                   "details":"Please Wait",
+                                   "action":"start",
+                                   "hiddenColumn": 1
                                    }];
                     },
-
+                    
+                    _isFailed:function(status){
+                        if(status==this.isFailed){
+                            return true;
+                        }
+                        return false;
+                    },
+                    _isRunning:function(status){
+                        if(status==this.isRunning){
+                            return true;
+                        }
+                        return false;
+                    },
+                    _isOnHold:function(status){
+                        if(status==this.isOnHold){
+                            return true;
+                        }
+                        return false;
+                    },
+                    _isEnabled:function(status){
+                        if(status==this.isEnabled){
+                            return true;
+                        }
+                        return false;
+                    },
+                    _isSuccess:function(status){
+                        if(status==this.isSuccess){
+                            return true;
+                        }
+                            return false;
+                    },
+                    _isDisabled:function(status){
+                        if(status==this.isDisabled){
+                            return true;
+                        }
+                        return false;
+                    },
+                    
+                    _tapConfirmRequest:function(){
+                    
+                    },
+                    
                     _tapFilterResult:function(){
                     
                     },
                     
+                    _tapPlay:function(e){
+                       console.log("play");
+                       console.log(e);
+                       this.warningTitle="Start Job";
+                       this.warningMessage="You are about to START Job, Are you sure?";
+                       this.$.warningMessageDialog.show();
+                    },
+                    
+                    _tapStop:function(e){
+                        console.log("stop");
+                        console.log(e);
+                        this.warningTitle="Stop Job";
+                        this.warningMessage="You are about to STOP Job, Are you sure?";
+                        this.$.warningMessageDialog.show();
+                    },
+                    _tapForceStart:function(e){
+                        console.log("fast forward");
+                        console.log(e);
+                        this.warningTitle="Force Start Job";
+                        this.warningMessage="You are about to FORCE START Job, Are you sure?";
+                        this.$.warningMessageDialog.show();
+                    },
+
+                    _tapDisabled:function(e){
+                        console.log("disabled");
+                        console.log(e);
+                        this.warningTitle="Disable Job";
+                        this.warningMessage="You are about to DISABLE Job, Are you sure?";
+                        this.$.warningMessageDialog.show();
+                    },
+
+                    _tapEnabled:function(e){
+                        console.log("enabled");
+                        console.log(e);
+                        this.warningTitle="Enable Job";
+                        this.warningMessage="You are about to ENABLE Job, Are you sure?";
+                        this.$.warningMessageDialog.show();
+                    },
+
                     _hideColumn: function(event) {
                         var property = event.currentTarget.columnProperty;
                         this.$$('paper-datatable-api').toggleColumn(property);
@@ -186,8 +338,8 @@
                         var filter = event.detail.filter.value;
                         var column = event.detail.filter.property;
                         var eventRow = document.createTextNode(filter + ' is filtered on ' + column + ' column');
-                        Polymer.dom(divLocal).appendChild(eventRow);
-                        Polymer.dom(this.$.paperCardEvent).querySelector('.card-content').appendChild(divLocal);
+                        console.log(eventRow);
+                    
                     },
                     _handleSelectionChanged: function(event) {
                         var divLocal = document.createElement('div');
