@@ -33,6 +33,11 @@
                 color:#ffffff;
                 background-color:var(--paper-yellow-600);
             }
+            .progress-bar-width{
+                width:20px;
+                --paper-progress-active-color: var(--paper-light-grey-500);
+                --paper-progress-secondary-color: var(--paper-light-grey-100);
+            }
             </style>
             <paper-dialog id="warningMessageDialog">
                 <h2>{{warningTitle}}</h2>
@@ -166,11 +171,11 @@
                                 <paper-datatable-api-column header="Progress" property="progress" sortable hideable>
                                     <template>
                                         <div class="vertical layout center">
+                                            <paper-progress class="progress-bar-width" value="[[value]]"></paper-progress>
                                             <div class="horizontal layout center">
                                                 <span>[[value]]</span>
                                                 <span>%</span>
                                             </div>
-                                            <paper-progress class="flex" value="[[value]]"></paper-progress>
                                         </div>
                                     </template>
                                 </paper-datatable-api-column>
@@ -185,7 +190,7 @@
                                         <template is="dom-if" if="{{_isDisabled(value)}}">
                                             <iron-icon icon="done" on-tap="_tapEnabled"></iron-icon>
                                         </template>
-                                        <template is="dom-if" if="{{_isOnHold(value)"}}>
+                                        <template is="dom-if" if="{{!_isRunning(value)}}">
                                             <iron-icon icon="av:play-arrow" on-tap="_tapPlay"></iron-icon>
                                         </template>
                                         <template is="dom-if" if="{{_isRunning(value)}}">
