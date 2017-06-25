@@ -378,7 +378,7 @@
                     _handleSort: function(event) {
                         this.sortProperty = event.detail.sort.property + ',' + event.detail.sort.direction;
                         console.log(this.sortProperty);
-                        var value = this.data.sort(this._selectParamToSort(sortJobFunction, event.details.sort.property));
+                        var value = this.data.sort(this._selectParamToSort(sortJobFunction, event.detail.sort.property));
                         console.log(this.data);
                         console.log("original");
                         console.log(value);
