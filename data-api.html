@@ -4,7 +4,7 @@
 <dom-module id="data-api">
   <template>
     <iron-ajax
-      auto
+      id="dataApi"
       url="data/data-page=[[page]]&size=[[size]].json"
       on-response="_handleResponse">
   </template>
@@ -40,7 +40,11 @@
           notify: true,
         },
       },
-
+      attached:function(){
+        this.async(function(){
+            this.$$("#dataApi").genereateRequest();
+        },100);
+      },
       _handleResponse: function(event) {
         var response = event.detail.response;
         this.data = response._embedded.data;
