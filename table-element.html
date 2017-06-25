@@ -16,6 +16,23 @@
             .margin-3{
                 margin:3px;
             }
+            .is-failed-class{
+                color:#ffffff;
+                background-color:var(--paper-red-600);
+            }
+            .is-running-class{
+                color:#ffffff;
+                background-color:var(--paper-green-600);
+            }
+            .is-success-class{
+                color:#ffffff;
+                background-color:var(--paper-blue-600);
+                
+            }
+            .is-on-hold-class{
+                color:#ffffff;
+                background-color:var(--paper-yellow-600);
+            }
             </style>
             <paper-dialog id="warningMessageDialog">
                 <h2>{{warningTitle}}</h2>
@@ -140,13 +157,13 @@
                                             <paper-item class="is-success-class">[[value]]</paper-item>
                                         </template>
                                         <template is="dom-if" if="{{_isDisabled(value)}}">
-                                            <paper-item class="is-disabled-class">[[value]]</paper-item>
+                                            <paper-item>[[value]]</paper-item>
                                         </template>
                                         <template is="dom-if" if="{{_isOnHold(value)}}">
                                             <paper-item class="is-on-hold-class">[[value]]</paper-item>
                                         </template>
                                         <template is="dom-if" if="{{_isEnabled(value)}}">
-                                            <paper-item class="is-enabled-class">[[value]]</paper-item>
+                                            <paper-item>[[value]]</paper-item>
                                         </template>
                                     </template>
                                 </paper-datatable-api-column>
@@ -162,11 +179,13 @@
                                 </paper-datatable-api-column>
                                 <paper-datatable-api-column header="Actions" property="actions">
                                     <template>
+                                       <div class="horizontal layout center">
                                         <iron-icon icon="av:play" on-tap="_tapPlay"></iron-icon>
                                         <iron-icon icon="av:stop" on-tap="_tapStop" ></iron-icon>
                                         <iron-icon icon="av:fast-forward" on-tap="_tapForceStart"></iron-icon>
                                         <iron-icon icon="av:not-interested" on-tap="_tapDisabled"></iron-icon>
                                         <iron-icon icon="done" on-tap="_tapEnabled"></iron-icon>
+                                        </div>
                                     </template>
                                 </paper-datatable-api-column>
                             </paper-datatable-api>
@@ -289,41 +308,41 @@
                     
                     _tapPlay:function(e){
                        console.log("play");
-                       console.log(e);
+                        console.log(e.detail.data.status);
                        this.warningTitle="Start Job";
                        this.warningMessage="You are about to START Job, Are you sure?";
-                       this.$.warningMessageDialog.show();
+                       this.$.warningMessageDialog.open();
                     },
                     
                     _tapStop:function(e){
                         console.log("stop");
-                        console.log(e);
+                         console.log(e.detail.data.status);
                         this.warningTitle="Stop Job";
                         this.warningMessage="You are about to STOP Job, Are you sure?";
-                        this.$.warningMessageDialog.show();
+                        this.$.warningMessageDialog.open();
                     },
                     _tapForceStart:function(e){
                         console.log("fast forward");
                         console.log(e);
                         this.warningTitle="Force Start Job";
                         this.warningMessage="You are about to FORCE START Job, Are you sure?";
-                        this.$.warningMessageDialog.show();
+                        this.$.warningMessageDialog.open();
                     },
 
                     _tapDisabled:function(e){
                         console.log("disabled");
-                        console.log(e);
+                         console.log(e.detail.data.status);
                         this.warningTitle="Disable Job";
                         this.warningMessage="You are about to DISABLE Job, Are you sure?";
-                        this.$.warningMessageDialog.show();
+                        this.$.warningMessageDialog.open();
                     },
 
                     _tapEnabled:function(e){
                         console.log("enabled");
-                        console.log(e);
+                        console.log(e.detail.data.status);
                         this.warningTitle="Enable Job";
                         this.warningMessage="You are about to ENABLE Job, Are you sure?";
-                        this.$.warningMessageDialog.show();
+                        this.$.warningMessageDialog.open();
                     },
 
                     _hideColumn: function(event) {
@@ -332,6 +351,7 @@
                     },
                     _handleSort: function(event) {
                         this.sortProperty = event.detail.sort.property + ',' + event.detail.sort.direction;
+                    
                     },
                     _handleFilter: function(event) {
                         var divLocal = document.createElement('div');
@@ -339,7 +359,6 @@
                         var column = event.detail.filter.property;
                         var eventRow = document.createTextNode(filter + ' is filtered on ' + column + ' column');
                         console.log(eventRow);
-                    
                     },
                     _handleSelectionChanged: function(event) {
                         var divLocal = document.createElement('div');
