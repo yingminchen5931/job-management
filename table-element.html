@@ -34,9 +34,12 @@
                 background-color:var(--paper-yellow-600);
             }
             .progress-bar-width{
-                width:20px;
+                width:35px;
                 --paper-progress-active-color: var(--paper-light-grey-500);
                 --paper-progress-secondary-color: var(--paper-light-grey-100);
+            }
+            .padding-3{
+                padding:3px;
             }
             </style>
             <paper-dialog id="warningMessageDialog">
@@ -99,15 +102,14 @@
                                 <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
                                 <paper-menu class="dropdown-content">
                                     <template is="dom-repeat" items="[[selectedColumns]]" as="col" index-as="index">
-                                        <paper-icon-item column-property="[[col.property]]" on-tap="_hideColumn">
+                                        <paper-item column-property="[[col.property]]" on-tap="_hideColumn">
                                             <template is="dom-if" if="[[col.hidden]]">
-                                                <paper-checkbox></paper-checkbox>
+                                                <paper-checkbox class="padding-3">[[col.header]]</paper-checkbox>
                                             </template>
                                             <template is="dom-if" if="[[!col.hidden]]">
-                                                <paper-checkbox checked></paper-checkbox>
+                                                <paper-checkbox class="padding-3" checked>[[col.header]]</paper-checkbox>
                                             </template>
-                                            [[col.header]]
-                                        </paper-icon-item>
+                                        </paper-item>
                                     </template>
                                 </paper-menu>
                             </paper-menu-button>
@@ -332,16 +334,14 @@
                     },
                     
                     _tapPlay:function(e){
-                       console.log("play");
-                        console.log(e.detail.data.status);
+                       console.log(e);
                        this.warningTitle="Start Job";
                        this.warningMessage="You are about to START Job, Are you sure?";
                        this.$.warningMessageDialog.open();
                     },
                     
                     _tapStop:function(e){
-                        console.log("stop");
-                         console.log(e.detail.data.status);
+                        console.log(e);
                         this.warningTitle="Stop Job";
                         this.warningMessage="You are about to STOP Job, Are you sure?";
                         this.$.warningMessageDialog.open();
@@ -356,7 +356,6 @@
 
                     _tapDisabled:function(e){
                         console.log("disabled");
-                         console.log(e.detail.data.status);
                         this.warningTitle="Disable Job";
                         this.warningMessage="You are about to DISABLE Job, Are you sure?";
                         this.$.warningMessageDialog.open();
@@ -364,7 +363,6 @@
 
                     _tapEnabled:function(e){
                         console.log("enabled");
-                        console.log(e.detail.data.status);
                         this.warningTitle="Enable Job";
                         this.warningMessage="You are about to ENABLE Job, Are you sure?";
                         this.$.warningMessageDialog.open();
